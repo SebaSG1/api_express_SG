@@ -1,64 +1,60 @@
-const axios = require('axios');             
-const {request, response} = require('express');
+const axios = require('axios');
+const { request, response} = require('express');
 
-const getPeliculas = (req = request, res = response) => {
-    
-    const queryParam = req.query;
-    //console.log(queryParam); //esto trae todo lo de la url
-    const {anio, ...resto} = req.query;
+const getPeliculas = (req = request, res = response) => {  
+    const { anio, ...resto } = req.query;
     console.log(req.query);
-    console.log("año " + anio);
     console.log(resto);
-    res.status(200).json({name : `Peliculas del año ${anio}`}); //respuestas .status.json
-  
+    res.status(401).json({name: `Peliculas del año ${anio}`});
 }
 
-const getPelicula = (req = require, res = response) =>{
-    //res.send('<h1>asdsd</h1>');
+const getPelicula = (req = request, res = response) => {  
     const {id} = req.params;
-    res.json({name: `pelicula con id ${id}`}) //templates literales usa backticks
-    console.log(`input user: ${id}`);
-}
-  
-const getClasicos = (req = require, res = response) =>{
-    res.json({name:'clasicos'});
+    console.log(id);
+    res.json({name: `Pelicula con ID: ${id}`});
 }
 
-const getEstrenos = (req = require, res = response) =>{
-    res.json({name:'estrenos'});
+
+const getEstrenos = (req = request, res = response) => {
+    res.json({name: 'Estrenos'});
 }
 
-const getNombreOrigen = (req = require, res = response) =>{
+const getActores = (req = request, res = response) => {
+    res.json({name: 'Actores'});
+}
+
+const getOrigenNombre = (req = request, res = response) => {
     console.log(req.params);
-    const {name} = req.params
-    
+    const { name } = req.params;
+
     axios.get(`https://api.nationalize.io/?name=${name}`)
-    .then(({status, data, statusText}) => {
-        console.log(status, data, statusText);
-        // handle success
-        res.status(200).json({
-            status, //si clave y objeto tienen el mismo valor, se pone solo la clave
-            data,
-            statusText,            
-            name
-        });
-        
-    })
-    .catch((error) => {
-        // handle error
-        console.log(error);
-        res.status(401).json({
-            status: 400, 
-            msg: 'Error cito'});
-    });
-    
+        .then(({ status, data, statusText }) => {
+            // handle success
+            console.log({ status, data, statusText });
+            res.status(200).json({
+                status,
+                data,
+                statusText,
+                name
+            });
+        })
+        .catch((error)=>{
+            // handle error
+            console.log(error);
+            res.status(400).json({
+                status:400,
+                msg: 'Error inesperado'
+            });
+        });        
+
     
 }
 
-    module.exports = {
-        getPeliculas,
-        getPelicula,
-        getClasicos,
-        getEstrenos,
-        getNombreOrigen
-    };
+
+module.exports = {
+    getPeliculas,
+    getEstrenos,
+    getActores,
+    getPelicula,
+    getOrigenNombre
+};

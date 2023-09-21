@@ -1,13 +1,13 @@
 {
-  "name": "primer-api",
+  "name": "demo_express",
   "version": "1.0.0",
-  "description": "",
+  "description": "Mi primera app en node",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app"
   },
-  "author": "",
+  "author": "Sebastian Gañan",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.5.0",
