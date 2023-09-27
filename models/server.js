@@ -2,8 +2,9 @@ const express = require('express');
 const cors = require('cors')
 class Server{
     
-    constructor(){
+    constructor(){    
         this.port = process.env.PORT || 3000;
+        this.api = process.env.API_KEY;
 
         this.app = express();
         
@@ -29,7 +30,7 @@ class Server{
             res.send('Home');
         }); */
 
-        this.app.use('/api/v1/demo', require('../routes/demo'));
+        this.app.use('/api/v1', require('../routes/peliculas'));
 
         this.app.all('*', (req, res) => {
             res.status(404).json({message:'404 Page Not Found'})

@@ -1,9 +1,6 @@
 
-## Mi primera app en node.js con exprees
-asdasdsad
-
-- prueba 1
-- prueba 2
+## API Express.js
+API en express que consume API de MOVIEDB para consultar sobre peliculas, su fecha de creacion, estrenos y actores.
 
 # api_express
 Api Key, movie data:  6642d1d0e0375e749f22c7fd635d734e

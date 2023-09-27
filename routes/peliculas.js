@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getEstrenos, getPeliculas, getActores, getPelicula, getOrigenNombre } = require('../controllers/demo');
+const { getEstrenos, getPeliculas, getActores, getPelicula, getOrigenNombre } = require('../controllers/peliculas');
 
 const rutas = Router();
 

@@ -1,17 +1,53 @@
-const axios = require('axios');
+const axios = require('axios')
 const { request, response} = require('express');
+const api_token = process.env.API_KEY;
 
 const getPeliculas = (req = request, res = response) => {  
-    const { anio, ...resto } = req.query;
-    console.log(req.query);
-    console.log(resto);
-    res.status(401).json({name: `Peliculas del año ${anio}`});
+    // Listado peliculas
+   
+
+    const url = `https://api.themoviedb.org/3/discover/movie`;
+    const options = {
+    headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${api_token}`
+      }
+    };
+    
+    axios.get(url, options)
+      .then((resp) => {
+            res.status(200).json(resp.data)
+        })
+        .catch((err) => {
+            res.status(400).json(error(400, `Bad Request ${err}`))
+        })
+   
 }
 
 const getPelicula = (req = request, res = response) => {  
+    // Obtener pelicula por ID 
+
     const {id} = req.params;
-    console.log(id);
-    res.json({name: `Pelicula con ID: ${id}`});
+
+    const url = `https://api.themoviedb.org/3/find/${id}?external_source=imdb_id`;
+    const options = {
+    headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${api_token}`
+      }
+    };
+    
+    axios.get(url, options)
+      .then((resp) => {
+            res.status(200).json(resp.data)
+        })
+        .catch((err) => {
+            res.status(400).json(error(400, `Bad Request ${err}`))
+        })
+
+
+
+  
 }
 
 
@@ -49,6 +85,11 @@ const getOrigenNombre = (req = request, res = response) => {
 
     
 }
+
+const error = (status, error) => ({
+    status: status,
+    error: error,
+})
 
 
 module.exports = {
